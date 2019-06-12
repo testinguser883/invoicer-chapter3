@@ -62,15 +62,12 @@ jobs:
             echo "************ INSIDE DOCKER ***********";
             docker exec `docker ps -q` netstat -antup;
             echo "*****************************************"
+            curl http://$_ip:8080/;
             # docker exec -it `docker ps -q` ls;
             ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-            ip42=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
             curl http://$ip41:8080/;
             echo "++++++++++++++++++++";
-            curl http://$ip42:8080/;
-            echo "--------------------"";
             curl http://localhost:8080/;
-            # curl http://$_ip:8080/;
 
       - run:
           name: ZAP baseline test of application
