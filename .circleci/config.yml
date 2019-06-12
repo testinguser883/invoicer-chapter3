@@ -38,10 +38,15 @@ jobs:
           name: Run application in background
           command: |
             docker run ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
-            curl http://172.17.0.2:8080/;
+          background: true
+      
+      - run:
+          name: Fetching ip
+          command: |
             docker ps;
             docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
-          background: true
+            curl -V;
+            curl http://172.17.0.2:8080/;
 
       - run:
           name: ZAP baseline test of application
