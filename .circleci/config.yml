@@ -53,9 +53,12 @@ jobs:
             echo "###########################";
             docker ps;
             ip a;
+            docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
             _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
-            # curl -V;
-            curl http://$_ip:8080/;
+            curl -V;
+            echo $_ip;
+            netstat -antup
+            # curl http://$_ip:8080/;
 
       - run:
           name: ZAP baseline test of application
