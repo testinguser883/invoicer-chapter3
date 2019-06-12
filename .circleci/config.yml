@@ -62,8 +62,8 @@ jobs:
             echo "************ INSIDE DOCKER ***********";
             docker exec `docker ps -q` netstat -antup;
             echo "*****************************************"
-            ping -c 3 $_ip;
-            curl http://$_ip:8080/;
+            # ping -c 3 $_ip;
+            curl http://172.17.0.2:8080/;
             # docker exec -it `docker ps -q` ls;
             ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
             curl http://$ip41:8080/;
