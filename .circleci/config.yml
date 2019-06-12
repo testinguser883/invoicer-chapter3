@@ -53,9 +53,9 @@ jobs:
             echo "###########################";
             docker ps;
             ip a;
-            # docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
-            curl -V;
-            # curl http://172.17.0.2:8080/;
+            _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
+            # curl -V;
+            curl http://$_ip:8080/;
 
       - run:
           name: ZAP baseline test of application
@@ -66,7 +66,7 @@ jobs:
             docker pull owasp/zap2docker-weekly && \
             docker run -t owasp/zap2docker-weekly zap-baseline.py \
                 -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/master/zap-baseline.conf \
-                -t http://172.17.0.2:8080/ || \
+                -t http://$_ip:8080/ || \
             if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
             )
 
