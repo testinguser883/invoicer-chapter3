@@ -33,6 +33,7 @@ jobs:
             [ ! -e bin ] && mkdir bin;
             cp "${GOPATH_HEAD}/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
             docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .;
+            ls -R;
 
       - run:
           name: Run application in background
@@ -44,7 +45,8 @@ jobs:
           name: Fetching ip
           command: |
             docker ps;
-            docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
+            ip a;
+            # docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
             curl -V;
             curl http://172.17.0.2:8080/;
 
