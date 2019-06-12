@@ -57,8 +57,18 @@ jobs:
             _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
             curl -V;
             echo $_ip;
+            echo "*********** LOCAL MACHINE **************";
             netstat -antup;
-            docker exec -it `docker ps -q` ls;
+            echo "************ INSIDE DOCKER ***********";
+            docker exec `docker ps -q` netstat -antup;
+            echo "*****************************************"
+            # docker exec -it `docker ps -q` ls;
+            ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+            ip42=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+            curl http://$ip41:8080/;
+            echo "++++++++++++++++++++";
+            curl http://$ip42:8080/;
+            echo "--------------------"";
             curl http://localhost:8080/;
             # curl http://$_ip:8080/;
 
