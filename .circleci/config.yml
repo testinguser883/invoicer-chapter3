@@ -34,7 +34,7 @@ jobs:
             go build --ldflags '-extldflags "-static"' -o bin/invoicer .;
             # cp "${GOPATH_HEAD}/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
             docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .;
-            docker images;
+            docker images;  
             echo "---------------------------";
             docker ps;
             echo "---------------------------";
@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Run application in background
           command: |
-            docker run -p 8080:8080 ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
+            docker run -d -p 8080:8080 ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
           background: true
       
       - run:
