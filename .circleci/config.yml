@@ -82,6 +82,10 @@ jobs:
                 -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/master/zap-baseline.conf \
                 -t http://localhost:8080/ || \
             if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
+            echo "###########################";
+            docker ps;
+            ip a;
+            docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
             )
 
       - run:
