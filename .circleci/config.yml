@@ -81,11 +81,7 @@ jobs:
             docker run -t owasp/zap2docker-weekly zap-baseline.py \
                 -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/master/zap-baseline.conf \
                 -t http://172.17.0.2:8080/ || \
-            # if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
-            echo "###########################";
-            docker ps;
-            ip a;
-            docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
+            if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
             )
 
       - run:
