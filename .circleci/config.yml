@@ -70,6 +70,10 @@ jobs:
       #       # curl http://$ip41:8080/;
       #       # echo "++++++++++++++++++++";
       #       curl http://127.0.0.1:8080/;
+      - run:
+          name: Debugging connectivity to webapp
+          command: |
+            docker run --rm byrnedo/alpine-curl localhost:8080
 
       - run:
           name: ZAP baseline test of application
