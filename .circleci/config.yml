@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Debugging connectivity to webapp
           command: |
-            echo 'export _ip="$(docker ps --filter=name=webapp -q)"' >> $BASH_ENV
+            echo 'export _ip=$(docker inspect --format "{{ .NetworkSettings.IPAddress }}" $(docker ps --filter=name=webapp -q))' >> $BASH_ENV
             docker pull byrnedo/alpine-curl && docker run byrnedo/alpine-curl $_ip:8080
 
       - run:
