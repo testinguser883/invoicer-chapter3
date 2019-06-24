@@ -45,6 +45,7 @@ jobs:
       - run:
           name: Debugging connectivity to webapp
           command: |
+            sleep 5;
             docker ps;
             _id=`docker ps --filter=name=webapp -q`;
             echo $_id;
