@@ -46,7 +46,8 @@ jobs:
           name: Debugging connectivity to webapp
           command: |
             docker ps;
-            export _ip=$(docker inspect --format "{{ .NetworkSettings.IPAddress }}" $(docker ps --filter=name=webapp -q)) >> $BASH_ENV;
+            _id=`docker ps --filter=name=webapp -q`;
+            export _ip=$(docker inspect --format "{{ .NetworkSettings.IPAddress }}" $_id) >> $BASH_ENV;
             echo $_ip;
             echo "+++++++++++++++++";
             env;
