@@ -46,15 +46,12 @@ jobs:
           name: Debugging connectivity to webapp
           command: |
             sleep 5;
-            docker ps;
             _id=`docker ps --filter=name=webapp -q`;
-            echo $_id;
-            echo "----------";
             _ip=`docker inspect --format "{{ .NetworkSettings.IPAddress }}" $_id`;
-            echo $_ip;
-            echo "+++++++++++++++++";
-            env;
-            docker pull byrnedo/alpine-curl && docker run byrnedo/alpine-curl $_ip:8080
+            export ip=$_ip;
+            echo $ip;
+            echo ";;;;;;;;;;;;;;";
+            docker pull byrnedo/alpine-curl && docker run byrnedo/alpine-curl $ip:8080
 
       - run:
           name: ZAP baseline test of application
