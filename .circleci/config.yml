@@ -69,7 +69,7 @@ jobs:
             # ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
             # curl http://$ip41:8080/;
             # echo "++++++++++++++++++++";
-            curl http://localhost:8080/;
+            curl http://127.0.0.1:8080/;
 
       - run:
           name: ZAP baseline test of application
