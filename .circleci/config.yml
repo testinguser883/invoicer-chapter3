@@ -95,7 +95,8 @@ jobs:
             ls ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME};
             GOPATH="${GOPATH_HEAD}";
             cd ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME};
-            govend -u --prune;
+            # govend -u --prune;
+            go get
             git diff --quiet
             # GOPATH="${GOPATH_HEAD}"; ( cd ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME} && govend -u --prune && git diff --quiet )
 
