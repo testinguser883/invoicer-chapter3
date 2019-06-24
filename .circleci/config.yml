@@ -47,7 +47,9 @@ jobs:
           command: |
             docker ps;
             _id=`docker ps --filter=name=webapp -q`;
-            export _ip=$(docker inspect --format "{{ .NetworkSettings.IPAddress }}" $_id) >> $BASH_ENV;
+            echo $_id;
+            echo "----------";
+            _ip=`docker inspect --format "{{ .NetworkSettings.IPAddress }}" $_id`;
             echo $_ip;
             echo "+++++++++++++++++";
             env;
