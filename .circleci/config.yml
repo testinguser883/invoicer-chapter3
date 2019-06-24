@@ -48,7 +48,8 @@ jobs:
             sleep 5;
             _id=`docker ps --filter=name=webapp -q`;
             _ip=`docker inspect --format "{{ .NetworkSettings.IPAddress }}" $_id`;
-            export ip=$_ip;
+            # export ip=$_ip;
+            echo 'export ip="${_ip}"' >> $BASH_ENV;
             echo $ip;
             echo ";;;;;;;;;;;;;;";
             docker pull byrnedo/alpine-curl && docker run byrnedo/alpine-curl $ip:8080
