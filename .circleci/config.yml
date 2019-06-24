@@ -58,6 +58,9 @@ jobs:
           # Only fail on error code 1, which indicates at least one FAIL was found.
           # error codes 2 & 3 indicate WARN or other, and should not break the run
           command: |
+            echo "++++++++++++++";
+            echo $ip;
+            echo "--------------";
             (
             docker pull owasp/zap2docker-weekly && \
             docker run --net=host -t owasp/zap2docker-weekly zap-baseline.py \
