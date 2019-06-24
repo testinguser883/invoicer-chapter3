@@ -52,7 +52,7 @@ jobs:
             sleep 5;
             echo "###########################";
             docker ps;
-            ip a;
+            ifconfig;
             docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
             _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
             curl -V;
