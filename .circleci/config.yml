@@ -46,30 +46,30 @@ jobs:
             docker run --name webapp --net=host -d ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
           background: true
       
-      - run:
-          name: Fetching ip
-          command: |
-            sleep 5;
-            echo "###########################";
-            docker ps;
-            ifconfig;
-            docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
-            _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
-            curl -V;
-            echo $_ip;
-            echo "*********** LOCAL MACHINE **************";
-            netstat -antup;
-            echo "************ INSIDE DOCKER ***********";
-            docker exec `docker ps -q` netstat -antup;
-            echo "*****************************************"
-            # ping -c 3 webapp;
-            # curl http://webapp:8080/;
-            # curl --retry 10 --retry-delay 5 -v http://localhost:8080/
-            # # docker exec -it `docker ps -q` ls;
-            # ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-            # curl http://$ip41:8080/;
-            # echo "++++++++++++++++++++";
-            curl http://127.0.0.1:8080/;
+      # - run:
+      #     name: Fetching ip
+      #     command: |
+      #       sleep 5;
+      #       echo "###########################";
+      #       docker ps;
+      #       ifconfig;
+      #       docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
+      #       _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
+      #       curl -V;
+      #       echo $_ip;
+      #       echo "*********** LOCAL MACHINE **************";
+      #       netstat -antup;
+      #       echo "************ INSIDE DOCKER ***********";
+      #       docker exec `docker ps -q` netstat -antup;
+      #       echo "*****************************************"
+      #       # ping -c 3 webapp;
+      #       # curl http://webapp:8080/;
+      #       # curl --retry 10 --retry-delay 5 -v http://localhost:8080/
+      #       # # docker exec -it `docker ps -q` ls;
+      #       # ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+      #       # curl http://$ip41:8080/;
+      #       # echo "++++++++++++++++++++";
+      #       curl http://127.0.0.1:8080/;
 
       - run:
           name: ZAP baseline test of application
