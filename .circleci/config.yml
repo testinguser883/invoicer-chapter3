@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Debugging connectivity to webapp
           command: |
-            docker run --rm byrnedo/alpine-curl localhost:8080
+            docker pull byrnedo/alpine-curl && docker run --net=host byrnedo/alpine-curl localhost:8080
 
       - run:
           name: ZAP baseline test of application
