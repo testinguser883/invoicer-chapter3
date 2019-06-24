@@ -34,47 +34,47 @@ jobs:
             go build --ldflags '-extldflags "-static"' -o bin/invoicer .;
             # cp "${GOPATH_HEAD}/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
             docker build -t ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME} .;
-            docker images;  
-            echo "---------------------------";
-            docker ps;
+            # docker images;  
+            # echo "---------------------------";
+            # docker ps;
             # echo "---------------------------";
             # ls -R;
 
       - run:
           name: Run application in background
           command: |
-            docker run --name webapp --net=host -d ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
+            docker run --name webapp -d ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
           background: true
       
-      # # - run:
-      # #     name: Fetching ip
-      # #     command: |
-      # #       sleep 5;
-      # #       echo "###########################";
-      # #       docker ps;
-      # #       ifconfig;
-      # #       docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
-      # #       _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
-      # #       curl -V;
-      # #       echo $_ip;
-      # #       echo "*********** LOCAL MACHINE **************";
-      # #       netstat -antup;
-      # #       echo "************ INSIDE DOCKER ***********";
-      # #       docker exec `docker ps -q` netstat -antup;
-      # #       echo "*****************************************"
-      # #       # ping -c 3 webapp;
-      # #       # curl http://webapp:8080/;
-      # #       # curl --retry 10 --retry-delay 5 -v http://localhost:8080/
-      # #       # # docker exec -it `docker ps -q` ls;
-      # #       # ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-      # #       # curl http://$ip41:8080/;
-      # #       # echo "++++++++++++++++++++";
-      # #       curl http://127.0.0.1:8080/;
+      - run:
+          name: Fetching ip
+          command: |
+            sleep 5;
+            echo "###########################";
+            docker ps;
+            ifconfig;
+            docker inspect --format '{{ .NetworkSettings.IPAddress }}' `docker ps -q`;
+            _ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' \`docker ps -q\``;
+            curl -V;
+            echo $_ip;
+            echo "*********** LOCAL MACHINE **************";
+            netstat -antup;
+            echo "************ INSIDE DOCKER ***********";
+            docker exec `docker ps -q` netstat -antup;
+            echo "*****************************************"
+            # ping -c 3 webapp;
+            # curl http://webapp:8080/;
+            # curl --retry 10 --retry-delay 5 -v http://localhost:8080/
+            # # docker exec -it `docker ps -q` ls;
+            # ip41=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+            # curl http://$ip41:8080/;
+            # echo "++++++++++++++++++++";
+            # curl http://127.0.0.1:8080/;
 
-      # - run:
-      #     name: Debugging connectivity to webapp
-      #     command: |
-      #       docker pull byrnedo/alpine-curl && docker run --net=host byrnedo/alpine-curl localhost:8080
+      - run:
+          name: Debugging connectivity to webapp
+          command: |
+            docker pull byrnedo/alpine-curl && docker run byrnedo/alpine-curl 172.16.0.2:8080
 
       # - run:
       #     name: ZAP baseline test of application
@@ -92,7 +92,7 @@ jobs:
       - run:
           name: Test dependencies are up to date
           command: |
-            ls ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME};
+            # ls ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME};
             GOPATH="${GOPATH_HEAD}";
             cd ${GOPATH_BASE}/${CIRCLE_PROJECT_REPONAME};
             # govend -u --prune;
