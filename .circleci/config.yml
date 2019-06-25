@@ -59,7 +59,7 @@ jobs:
             _ip=`docker inspect --format "{{ .NetworkSettings.IPAddress }}" $_id`;
             (
             docker pull owasp/zap2docker-weekly && \
-            docker run --net=host -t owasp/zap2docker-weekly zap-baseline.py \
+            docker run -t owasp/zap2docker-weekly zap-baseline.py \
                 -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/master/zap-baseline.conf \
                 -t http://$_ip:8080/ || \
             if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
